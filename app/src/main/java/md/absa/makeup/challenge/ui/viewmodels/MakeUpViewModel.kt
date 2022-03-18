@@ -41,16 +41,11 @@ class MakeUpViewModel @Inject constructor(
             kotlin.runCatching {
                 repository.fetchMakeUp()
             }.onSuccess { response ->
-                // save to db
-                addToRoom(response = response.body())
                 _makeUpItems.value = NetworkResource.success(data = response.body())
             }.onFailure { error ->
                 _makeUpItems.value = NetworkResource.error(message = error.message ?: "Some error occurred")
             }
         }
-
-    private suspend fun addToRoom(response: MakeUpResponse?) =
-        repository.addToRoom(response)
 
     fun getBrands() =
         repository.getBrands()

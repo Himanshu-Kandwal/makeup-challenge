@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:cardBackgroundColor="@color/lightGray"
-    android:elevation="10dp"
-    app:cardCornerRadius="10dp"
-    android:layout_margin="8dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
-    <TextView
-        android:id="@+id/brand_name"
+    <androidx.cardview.widget.CardView
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardBackgroundColor="@color/lightGray"
+        android:elevation="10dp"
+        app:cardCornerRadius="10dp"
+        android:layout_margin="8dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/app_name"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:padding="16dp"
-        android:textAllCaps="true"
-        android:gravity="center|center_horizontal"/>
-
-</androidx.cardview.widget.CardView>
+        android:layout_height="0dp">
+        <TextView
+            android:id="@+id/brand_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/app_name"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:padding="16dp"
+            android:textAllCaps="true"
+            android:gravity="center|center_horizontal"/>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

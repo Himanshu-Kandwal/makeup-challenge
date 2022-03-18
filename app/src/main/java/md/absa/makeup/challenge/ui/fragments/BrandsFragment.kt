@@ -11,9 +11,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import md.absa.makeup.challenge.common.Constants
 import md.absa.makeup.challenge.databinding.FragmentBrandsBinding
 import md.absa.makeup.challenge.ui.adapters.BrandsAdapter
 import md.absa.makeup.challenge.ui.viewmodels.MakeUpViewModel
@@ -24,7 +27,6 @@ import timber.log.Timber
 class BrandsFragment : Fragment() {
 
     private val viewModel by viewModels<MakeUpViewModel>()
-
     private var _binding: FragmentBrandsBinding? = null
     private val binding get() = _binding!!
 
@@ -65,15 +67,21 @@ class BrandsFragment : Fragment() {
             }
         }
 
-        // Observe locations via Flow as they are inserted into Room by the Service
+        /**
+         * Observe data directly via Flow as it is inserted into Room
+         */
         viewModel.getBrands()
             .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
             .onEach {
                 if (it.isNotEmpty()) {
-                    Timber.tag("BRANDS").e(it.toString())
+                    Timber.tag("BRANDS...").e(it.toString())
                     setupRecyclerView(it)
                 } else {
-                    Toast.makeText(requireActivity(), "NO BRANDS", Toast.LENGTH_LONG).show()
+                    Snackbar.make(
+                        binding.root,
+                        "No Brands",
+                        LENGTH_LONG
+                    ).show()
                 }
             }
             .launchIn(lifecycleScope)
@@ -81,7 +89,7 @@ class BrandsFragment : Fragment() {
 
     private fun setupRecyclerView(brands: List<String>) {
         val adapter = BrandsAdapter(brands)
-        binding.recyclerView.layoutManager = GridLayoutManager(requireActivity(), 2)
+        binding.recyclerView.layoutManager = GridLayoutManager(requireActivity(), Constants.BRANDS_GRID_LAYOUT_COLUMNS)
         binding.recyclerView.adapter = adapter
     }
 

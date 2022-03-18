@@ -3,4 +3,8 @@
     <string name="fetch_make_up">Fetch Make Up</string>
     <string name="buy">Buy</string>
     <string name="you_may_also_want">You may also like</string>
+    <string name="products">Products</string>
+    <string name="product">Product</string>
+    <string name="visit_shop">Visit Shop</string>
+    <string name="brands">Brands</string>
 </resources>

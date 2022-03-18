@@ -11,9 +11,11 @@ class MakeUpRepository @Inject constructor(
     private val makeUpDatabase: MakeUpDatabase
 ) {
     suspend fun fetchMakeUp(): Response<MakeUpResponse> =
-        retrofitInterface.fetchMakeUpProducts()
+        retrofitInterface.fetchMakeUpProducts().also {
+            addToRoom(it.body())
+        }
 
-    suspend fun addToRoom(response: MakeUpResponse?) =
+    private suspend fun addToRoom(response: MakeUpResponse?) =
         makeUpDatabase.makeUpItemDao().insert(response!!)
 
     fun getBrands() =
@@ -27,5 +29,4 @@ class MakeUpRepository @Inject constructor(
 
     suspend fun getProductsByProductType(productType: String?) =
         makeUpDatabase.makeUpItemDao().getProductsByProductType(productType)
-
 }

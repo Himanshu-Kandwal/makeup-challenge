@@ -24,8 +24,9 @@ class SimilarProductsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
 
     init {
         itemView.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("product_id", productId.text.toString())
+            val bundle = Bundle().apply {
+                putString("product_id", productId.text.toString())
+            }
             val navController: NavController = findNavController(itemView)
             navController.run {
                 popBackStack()

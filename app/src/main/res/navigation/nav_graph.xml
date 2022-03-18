@@ -2,12 +2,15 @@
 <navigation
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/brandsFragment">
     <fragment
         android:id="@+id/brandsFragment"
         android:name="md.absa.makeup.challenge.ui.fragments.BrandsFragment"
-        android:label="BrandsFragment" >
+        android:label="BrandsFragment"
+        tools:layout="@layout/fragment_brands"
+        >
         <action
             android:id="@+id/action_brandsFragment_to_productsFragment"
             app:destination="@id/productsFragment" />
@@ -15,7 +18,9 @@
     <fragment
         android:id="@+id/productsFragment"
         android:name="md.absa.makeup.challenge.ui.fragments.ProductsFragment"
-        android:label="ProductsFragment" >
+        android:label="ProductsFragment"
+        tools:layout="@layout/fragment_products"
+        >
         <action
             android:id="@+id/action_productsFragment_to_brandsFragment"
             app:destination="@id/brandsFragment" />
@@ -26,7 +31,9 @@
     <fragment
         android:id="@+id/productFragment"
         android:name="md.absa.makeup.challenge.ui.fragments.ProductFragment"
-        android:label="ProductFragment" >
+        android:label="ProductFragment"
+        tools:layout="@layout/fragment_product"
+        >
         <action
             android:id="@+id/action_productFragment_to_productsFragment"
             app:destination="@id/productsFragment" />
@@ -37,7 +44,9 @@
     <fragment
         android:id="@+id/webViewFragment"
         android:name="md.absa.makeup.challenge.ui.fragments.WebViewFragment"
-        android:label="WebViewFragment" >
+        android:label="WebViewFragment"
+        tools:layout="@layout/fragment_webview"
+        >
         <action
             android:id="@+id/action_webViewFragment_to_productFragment"
             app:destination="@id/productFragment" />
