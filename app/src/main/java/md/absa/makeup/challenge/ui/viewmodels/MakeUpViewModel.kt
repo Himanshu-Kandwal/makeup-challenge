@@ -87,4 +87,11 @@ class MakeUpViewModel @Inject constructor(
                 _similarProducts.value = NetworkResource.error(message = error.message ?: "Some error occurred")
             }
         }
+
+    fun toggleNightMode() {
+        viewModelScope.launch {
+            prefsStore.toggleNightMode()
+        }
+    }
+    val darkThemeEnabled = prefsStore.isNightMode().asLiveData()
 }

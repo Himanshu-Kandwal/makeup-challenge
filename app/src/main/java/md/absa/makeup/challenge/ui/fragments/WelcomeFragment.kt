@@ -138,16 +138,6 @@ class WelcomeFragment : Fragment() {
         return binding.viewPager.currentItem + i
     }
 
-    // Checking for first time launch - todo Use data store component
-//        prefManager = Preferences(this)
-//        if (!prefManager.isFirstTimeLaunch()) {
-//            launchHomeScreen()
-//            finish()
-//        }
-//        // Making notification bar transparent
-//        getWindow().getDecorView().setSystemUiVisibility(
-//            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
-
 //    val textView = TextView(requireActivity()).apply {
 //        text = Html.fromHtml("&#8226;")
 //        textSize = 35f
