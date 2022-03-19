@@ -1,13 +1,5 @@
 package md.absa.makeup.challenge.common
 
-import android.content.Context
-import android.graphics.Color
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
-import android.os.Build
-import android.view.View
-import android.view.WindowManager
-
 object Utils {
 
 //    private fun setStatusBar() {
@@ -31,4 +23,15 @@ object Utils {
 //
 //        return activeNetwork?.isConnected == true
 //    }
+
+    /**
+     * Making notification bar transparent
+     */
+//    private fun changeStatusBarColor() {
+//        val window: Window = getWindow()
+//        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+//        window.statusBarColor = Color.TRANSPARENT
+//    }
+
+
 }

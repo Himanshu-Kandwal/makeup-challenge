@@ -5,16 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.work.Constraints
+import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import dagger.hilt.android.AndroidEntryPoint
-import md.absa.makeup.challenge.databinding.FragmentBrandsBinding
-import md.absa.makeup.challenge.ui.viewmodels.MakeUpViewModel
+import kotlinx.coroutines.*
+import md.absa.makeup.challenge.R
+import md.absa.makeup.challenge.databinding.FragmentSplashBinding
+import md.absa.makeup.challenge.workers.MakeUpWorker
 
 @AndroidEntryPoint
 class SplashFragment : Fragment() {
 
-    private val viewModel by viewModels<MakeUpViewModel>()
-    private var _binding: FragmentBrandsBinding? = null
+    private val applicationScope = CoroutineScope(Dispatchers.Default)
+
+    private var _binding: FragmentSplashBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -22,12 +29,39 @@ class SplashFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentBrandsBinding.inflate(inflater, container, false)
+        _binding = FragmentSplashBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        runBlocking {
+            delay(2500L)
+            findNavController().navigate(R.id.action_splashFragment_to_welcomeFragment)
+        }
+
+        applicationScope.launch {
+            setupRecurringWork()
+        }
+    }
+
+    /**
+     * Fire our worker to fetch makeup data via [setupRecurringWork]
+     *
+     * if for sure we knew the data would change at some point, i'd use a periodic
+     * work request as below
+     *  val repeatingRequest = PeriodicWorkRequestBuilder<MakeUpWorker>(1, TimeUnit.HOURS).build()
+     *  WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
+     *  MakeUpWorker.WORK_NAME,
+     *  ExistingPeriodicWorkPolicy.KEEP,
+     *  repeatingRequest
+     *  )
+     */
+    private fun setupRecurringWork() {
+        val constraints = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+        val task = OneTimeWorkRequestBuilder<MakeUpWorker>().setConstraints(constraints).build()
+        val workManager = WorkManager.getInstance(requireContext())
+        workManager.enqueue(task)
     }
 
     override fun onDestroyView() {

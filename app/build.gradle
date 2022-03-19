@@ -61,6 +61,9 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
     implementation "androidx.work:work-runtime-ktx:$workVersion"
 
+    implementation "androidx.datastore:datastore-preferences:$preferencesDatastore"
+
+
     // kotlin extensions
     implementation 'androidx.activity:activity-ktx:1.4.0'
     implementation 'androidx.fragment:fragment-ktx:1.4.1'

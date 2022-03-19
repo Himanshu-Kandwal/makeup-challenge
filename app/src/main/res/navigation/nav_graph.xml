@@ -1,16 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/brandsFragment">
+    app:startDestination="@id/splashFragment">
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="md.absa.makeup.challenge.ui.fragments.SplashFragment"
+        android:label="SplashFragment"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_splashFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/splashFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="md.absa.makeup.challenge.ui.fragments.WelcomeFragment"
+        android:label="WelcomeFragment"
+        tools:layout="@layout/fragment_welcome">
+        <action
+            android:id="@+id/action_welcomeFragment_to_brandsFragment"
+            app:destination="@id/brandsFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/welcomeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/brandsFragment"
         android:name="md.absa.makeup.challenge.ui.fragments.BrandsFragment"
         android:label="BrandsFragment"
-        tools:layout="@layout/fragment_brands"
-        >
+        tools:layout="@layout/fragment_brands">
         <action
             android:id="@+id/action_brandsFragment_to_productsFragment"
             app:destination="@id/productsFragment" />
@@ -19,8 +41,7 @@
         android:id="@+id/productsFragment"
         android:name="md.absa.makeup.challenge.ui.fragments.ProductsFragment"
         android:label="ProductsFragment"
-        tools:layout="@layout/fragment_products"
-        >
+        tools:layout="@layout/fragment_products">
         <action
             android:id="@+id/action_productsFragment_to_brandsFragment"
             app:destination="@id/brandsFragment" />
@@ -32,8 +53,7 @@
         android:id="@+id/productFragment"
         android:name="md.absa.makeup.challenge.ui.fragments.ProductFragment"
         android:label="ProductFragment"
-        tools:layout="@layout/fragment_product"
-        >
+        tools:layout="@layout/fragment_product">
         <action
             android:id="@+id/action_productFragment_to_productsFragment"
             app:destination="@id/productsFragment" />
@@ -45,10 +65,10 @@
         android:id="@+id/webViewFragment"
         android:name="md.absa.makeup.challenge.ui.fragments.WebViewFragment"
         android:label="WebViewFragment"
-        tools:layout="@layout/fragment_webview"
-        >
+        tools:layout="@layout/fragment_webview">
         <action
             android:id="@+id/action_webViewFragment_to_productFragment"
             app:destination="@id/productFragment" />
     </fragment>
+
 </navigation>

@@ -49,19 +49,36 @@ class BrandsFragment : Fragment() {
                     Status.LOADING -> {
                         binding.fetchMakeup.visibility = View.GONE
                         binding.progressBar.visibility = View.VISIBLE
+                        binding.noData.visibility = View.GONE
+                        binding.noWifi.visibility = View.GONE
                     }
                     Status.SUCCESS -> {
-                        binding.fetchMakeup.visibility = View.VISIBLE
+                        binding.fetchMakeup.visibility = View.GONE
+                        binding.noData.visibility = View.GONE
                         binding.progressBar.visibility = View.GONE
+                        binding.noWifi.visibility = View.GONE
                         response.data?.let { data ->
-                            Toast.makeText(requireActivity(), response.message, Toast.LENGTH_LONG).show()
+                            Snackbar.make(
+                                binding.root,
+                                response.message.toString(),
+                                LENGTH_LONG
+                            ).show()
                             Timber.e(data.toString())
+                            observeDBForBrands()
                         }
                     }
                     Status.ERROR -> {
                         binding.fetchMakeup.visibility = View.VISIBLE
                         binding.progressBar.visibility = View.GONE
-                        Toast.makeText(requireActivity(), response.message, Toast.LENGTH_LONG).show()
+                        binding.noData.visibility = View.GONE
+                        // For now I assume its a network issue, best practice => handle all scenarios
+                        binding.noWifi.visibility = View.VISIBLE
+                        Snackbar.make(
+                            binding.root,
+                            response.message.toString(),
+                            LENGTH_LONG
+                        ).show()
+                        Timber.e(response.toString())
                     }
                 }
             }
@@ -70,18 +87,27 @@ class BrandsFragment : Fragment() {
         /**
          * Observe data directly via Flow as it is inserted into Room
          */
+        observeDBForBrands()
+    }
+
+    private fun observeDBForBrands() {
         viewModel.getBrands()
             .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
             .onEach {
                 if (it.isNotEmpty()) {
                     Timber.tag("BRANDS...").e(it.toString())
+                    binding.recyclerView.visibility = View.VISIBLE
+                    binding.noData.visibility = View.GONE
                     setupRecyclerView(it)
                 } else {
                     Snackbar.make(
                         binding.root,
-                        "No Brands",
+                        "No brands found",
                         LENGTH_LONG
                     ).show()
+                    binding.recyclerView.visibility = View.GONE
+                    binding.noData.visibility = View.VISIBLE
+                    binding.fetchMakeup.visibility = View.VISIBLE
                 }
             }
             .launchIn(lifecycleScope)

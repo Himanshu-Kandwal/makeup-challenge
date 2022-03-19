@@ -1,21 +1,26 @@
 package md.absa.makeup.challenge.ui.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import md.absa.makeup.challenge.data.api.resource.NetworkResource
 import md.absa.makeup.challenge.data.api.response.MakeUpResponse
 import md.absa.makeup.challenge.data.repository.MakeUpRepository
 import md.absa.makeup.challenge.model.MakeUpItem
+import md.absa.makeup.challenge.prefs_datastore.PrefsStore
 import javax.inject.Inject
 
 @HiltViewModel
 class MakeUpViewModel @Inject constructor(
-    private val repository: MakeUpRepository
+    private val repository: MakeUpRepository,
+    private val prefsStore: PrefsStore
 ) : ViewModel() {
+
+    private val _isWelcomeScreenShown: MutableLiveData<Boolean> = MutableLiveData()
+    val isWelcomeScreenShown: LiveData<Boolean>
+        get() {
+            return _isWelcomeScreenShown
+        }
 
     private val _makeUpItems: MutableLiveData<NetworkResource<MakeUpResponse?>> = MutableLiveData()
     val makeUpItems: LiveData<NetworkResource<MakeUpResponse?>>
@@ -34,6 +39,12 @@ class MakeUpViewModel @Inject constructor(
         get() {
             return _similarProducts
         }
+
+    fun welcomeScreenInfo() =
+        prefsStore.isWelcomeScreenShown().asLiveData()
+
+    suspend fun setWelcomeScreenInfo(value: Boolean) =
+        prefsStore.setWelcomeScreenShown(value)
 
     fun fetchMakeup() =
         viewModelScope.launch {
