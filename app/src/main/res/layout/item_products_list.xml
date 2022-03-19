@@ -1,94 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-    <androidx.cardview.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        card_view:cardBackgroundColor="@color/lightGray"
-        card_view:cardCornerRadius="10dp"
-        android:elevation="10dp"
-        android:layout_margin="8dp"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:elevation="10dp"
+    card_view:cardBackgroundColor="@color/lightGray"
+    card_view:cardCornerRadius="10dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="match_parent"
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/productId"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="0dp"
-                android:layout_weight="0.3"
-                android:layout_height="match_parent"
-                android:src="@drawable/placeholder"
-                android:layout_gravity="center|bottom"
-                android:adjustViewBounds="true"
-                tools:ignore="ContentDescription" />
-            <LinearLayout
-                android:id="@+id/layout_item_desc"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.7"
-                android:orientation="horizontal"
-                android:baselineAligned="false">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp">
-                    <TextView
-                        android:visibility="gone"
-                        android:id="@+id/productId"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light"
-                        android:maxLines="1"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        tools:text="Lip Bum Set"
-                        android:textStyle="bold"
-                        />
-                    <TextView
-                        android:id="@+id/price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="KES. 9,999"
-                        android:fontFamily="sans-serif-light"
-                        android:maxLines="1"
-                        android:paddingTop="4dp"
-                        android:textStyle="bold"
-                        android:textSize="14sp"
-                        />
-                    <TextView
-                        android:id="@+id/category"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="Category: lip bum"
-                        android:fontFamily="sans-serif-light"
-                        android:maxLines="1"
-                        android:paddingTop="4dp"
-                        android:textStyle="bold"
-                        android:textSize="13sp"
-                        />
-                    <TextView
-                        android:id="@+id/rating"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="Rating : 4.5*"
-                        android:fontFamily="sans-serif-light"
-                        android:maxLines="1"
-                        android:paddingTop="4dp"
-                        android:textStyle="bold"
-                        android:textSize="14sp"
-                        />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+            android:visibility="gone"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="sans-serif-light"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            card_view:layout_constraintStart_toEndOf="@id/image"
+            card_view:layout_constraintTop_toTopOf="parent"
+            tools:text="Lip Bum Set" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="sans-serif-light"
+            android:maxLines="1"
+            android:paddingTop="4dp"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            card_view:layout_constraintStart_toEndOf="@id/image"
+            card_view:layout_constraintTop_toBottomOf="@+id/name"
+            tools:text="KES. 9,999" />
+
+        <TextView
+            android:id="@+id/category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="sans-serif-light"
+            android:maxLines="1"
+            android:paddingTop="4dp"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            card_view:layout_constraintStart_toEndOf="@id/image"
+            card_view:layout_constraintTop_toBottomOf="@+id/price"
+            tools:text="Category: lip bum" />
+
+        <TextView
+            android:id="@+id/rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="sans-serif-light"
+            android:maxLines="1"
+            android:paddingTop="4dp"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            card_view:layout_constraintStart_toEndOf="@id/image"
+            card_view:layout_constraintTop_toBottomOf="@+id/category"
+            tools:text="Rating : 4.5*" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
