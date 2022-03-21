@@ -19,4 +19,7 @@ interface MakeUpItemDao : BaseDao<MakeUpItem> {
 
     @Query("SELECT * FROM make_up_item WHERE product_type = :productType LIMIT 10")
     suspend fun getProductsByProductType(productType: String?): List<MakeUpItem>
+
+    @Query("DELETE FROM make_up_item")
+    fun nukeTable()
 }

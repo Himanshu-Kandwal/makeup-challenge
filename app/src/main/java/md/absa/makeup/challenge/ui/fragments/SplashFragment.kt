@@ -1,6 +1,8 @@
 package md.absa.makeup.challenge.ui.fragments
 
+import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +15,7 @@ import androidx.work.WorkManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import md.absa.makeup.challenge.R
+import md.absa.makeup.challenge.common.Utils
 import md.absa.makeup.challenge.databinding.FragmentSplashBinding
 import md.absa.makeup.challenge.workers.MakeUpWorker
 
@@ -29,20 +32,23 @@ class SplashFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        // Color status bar
+        Utils.setStatusBarColor(requireActivity().window, Color.TRANSPARENT, false)
         _binding = FragmentSplashBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        runBlocking {
-            delay(2500L)
-            findNavController().navigate(R.id.action_splashFragment_to_welcomeFragment)
-        }
-
         applicationScope.launch {
             setupRecurringWork()
         }
+        Handler().postDelayed(
+            Runnable {
+                findNavController().navigate(R.id.action_splashFragment_to_welcomeFragment)
+            },
+            2000
+        )
     }
 
     /**

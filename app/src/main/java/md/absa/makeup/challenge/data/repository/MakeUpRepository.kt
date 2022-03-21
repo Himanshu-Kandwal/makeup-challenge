@@ -15,8 +15,10 @@ class MakeUpRepository @Inject constructor(
             addToRoom(it.body())
         }
 
-    private suspend fun addToRoom(response: MakeUpResponse?) =
+    private suspend fun addToRoom(response: MakeUpResponse?) {
+        makeUpDatabase.makeUpItemDao().nukeTable()
         makeUpDatabase.makeUpItemDao().insert(response!!)
+    }
 
     fun getBrands() =
         makeUpDatabase.makeUpItemDao().getBrands()

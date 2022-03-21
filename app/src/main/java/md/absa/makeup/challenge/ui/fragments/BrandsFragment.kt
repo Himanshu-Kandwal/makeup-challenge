@@ -1,9 +1,11 @@
 package md.absa.makeup.challenge.ui.fragments
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -16,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import md.absa.makeup.challenge.common.Constants
+import md.absa.makeup.challenge.common.Utils
 import md.absa.makeup.challenge.databinding.FragmentBrandsBinding
 import md.absa.makeup.challenge.ui.adapters.BrandsAdapter
 import md.absa.makeup.challenge.ui.viewmodels.MakeUpViewModel
@@ -34,12 +37,15 @@ class BrandsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        Utils.setStatusBarColor(requireActivity().window, Color.BLACK, true)
         _binding = FragmentBrandsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = "Brands"
 
         binding.fetchMakeup.setOnClickListener {
             viewModel.fetchMakeup()

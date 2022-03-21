@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -16,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import md.absa.makeup.challenge.R
 import md.absa.makeup.challenge.databinding.ActivityMainBinding
 import md.absa.makeup.challenge.ui.viewmodels.MakeUpViewModel
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -32,16 +35,17 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         setSupportActionBar(binding.toolbar)
-        appBarConfiguration = AppBarConfiguration.Builder(
-            R.id.brandsFragment,
-            R.id.productsFragment,
-            R.id.productFragment,
-            R.id.webViewFragment,
-        ).build()
+
+//        appBarConfiguration = AppBarConfiguration.Builder(
+//            R.id.brandsFragment,
+//            R.id.productFragment,
+//            R.id.webViewFragment,
+//        ).build()
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment?
         navHostFragment?.let {
             val navController = it.navController
+            appBarConfiguration = AppBarConfiguration(navController.graph)
             setupActionBarWithNavController(navController, appBarConfiguration)
 
             // todo use safe args to set dynamic fragment titles
@@ -85,6 +89,26 @@ class MainActivity : AppCompatActivity() {
             AppCompatDelegate.setDefaultNightMode(defaultMode)
         }
     }
+
+//    override fun onBackPressed() {
+//        super.onBackPressed()
+//        onBackPressedDispatcher.addCallback(
+//            this,
+//            object : OnBackPressedCallback(true) {
+//                override fun handleOnBackPressed() {
+//                    onBackPressed()
+//                    Timber.e("Fgshdfgjytgasgasd")
+//                    // if you want onBackPressed() to be called as normal afterwards
+//                }
+//            }
+//        )
+//    }
+//    requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+//        backPressed()
+//        // Now actually go back
+//        findNavController().popBackStack()
+//    }
+
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
