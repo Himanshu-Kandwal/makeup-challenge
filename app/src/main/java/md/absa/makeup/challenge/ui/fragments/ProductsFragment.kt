@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
 import md.absa.makeup.challenge.databinding.FragmentProductsBinding
 import md.absa.makeup.challenge.model.MakeUpItem
 import md.absa.makeup.challenge.ui.adapters.ProductsAdapter

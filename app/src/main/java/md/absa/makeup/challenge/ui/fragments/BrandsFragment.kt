@@ -19,10 +19,10 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import md.absa.makeup.challenge.common.Constants
 import md.absa.makeup.challenge.common.Utils
+import md.absa.makeup.challenge.data.api.resource.Status
 import md.absa.makeup.challenge.databinding.FragmentBrandsBinding
 import md.absa.makeup.challenge.ui.adapters.BrandsAdapter
 import md.absa.makeup.challenge.ui.viewmodels.MakeUpViewModel
-import md.ke.dvt.data.network.resource.Status
 import timber.log.Timber
 
 @AndroidEntryPoint

@@ -16,12 +16,6 @@ class MakeUpViewModel @Inject constructor(
     private val prefsStore: PrefsStore
 ) : ViewModel() {
 
-    private val _isWelcomeScreenShown: MutableLiveData<Boolean> = MutableLiveData()
-    val isWelcomeScreenShown: LiveData<Boolean>
-        get() {
-            return _isWelcomeScreenShown
-        }
-
     private val _makeUpItems: MutableLiveData<NetworkResource<MakeUpResponse?>> = MutableLiveData()
     val makeUpItems: LiveData<NetworkResource<MakeUpResponse?>>
         get() {
@@ -40,12 +34,6 @@ class MakeUpViewModel @Inject constructor(
             return _similarProducts
         }
 
-    fun welcomeScreenInfo() =
-        prefsStore.isWelcomeScreenShown().asLiveData()
-
-    suspend fun setWelcomeScreenInfo(value: Boolean) =
-        prefsStore.setWelcomeScreenShown(value)
-
     fun fetchMakeup() =
         viewModelScope.launch {
             _makeUpItems.value = NetworkResource.loading(message = "Loading")
@@ -57,12 +45,6 @@ class MakeUpViewModel @Inject constructor(
                 _makeUpItems.value = NetworkResource.error(message = error.message ?: "Some error occurred")
             }
         }
-
-    fun getBrands() =
-        repository.getBrands()
-
-    fun getProductsByBrand(brandName: String) =
-        repository.getProductsByBrand(brandName)
 
     fun getProductById(id: String) =
         viewModelScope.launch {
@@ -94,4 +76,12 @@ class MakeUpViewModel @Inject constructor(
         }
     }
     val darkThemeEnabled = prefsStore.isNightMode().asLiveData()
+
+    fun welcomeScreenInfo() = prefsStore.isWelcomeScreenShown().asLiveData()
+
+    suspend fun setWelcomeScreenInfo(value: Boolean) = prefsStore.setWelcomeScreenShown(value)
+
+    fun getBrands() = repository.getBrands()
+
+    fun getProductsByBrand(brandName: String) = repository.getProductsByBrand(brandName)
 }

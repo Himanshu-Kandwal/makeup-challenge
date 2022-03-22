@@ -7,10 +7,10 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import md.absa.makeup.challenge.MakeUpApplication
-import md.absa.makeup.challenge.data.db.MakeUpDatabase
 import md.absa.makeup.challenge.data.api.MyHttpClient
 import md.absa.makeup.challenge.data.api.RetrofitInstance
 import md.absa.makeup.challenge.data.api.RetrofitInterface
+import md.absa.makeup.challenge.data.db.MakeUpDatabase
 import javax.inject.Singleton
 
 @Module

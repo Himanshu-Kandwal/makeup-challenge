@@ -16,7 +16,7 @@ class PrefsStoreImpl @Inject constructor(
     @ApplicationContext context: Context
 ) : PrefsStore {
 
-    private val dataStore = context.createDataStore(name = Constants.DATASTORE_NAME,)
+    private val dataStore = context.createDataStore(name = Constants.DATASTORE_NAME)
 
     /**
      * Store dark mode state

@@ -18,5 +18,4 @@ class TagListConverter {
         val listType: Type = object : TypeToken<ArrayList<String>>() {}.type
         return Gson().fromJson(string, listType)
     }
-
 }

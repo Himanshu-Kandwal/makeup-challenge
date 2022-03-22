@@ -14,11 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
 import md.absa.makeup.challenge.R
+import md.absa.makeup.challenge.data.api.resource.Status
 import md.absa.makeup.challenge.databinding.FragmentProductBinding
 import md.absa.makeup.challenge.model.MakeUpItem
 import md.absa.makeup.challenge.ui.adapters.SimilarProductsAdapter
 import md.absa.makeup.challenge.ui.viewmodels.MakeUpViewModel
-import md.ke.dvt.data.network.resource.Status
 import timber.log.Timber
 
 @AndroidEntryPoint

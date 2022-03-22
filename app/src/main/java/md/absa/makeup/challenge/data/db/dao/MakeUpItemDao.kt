@@ -1,5 +1,6 @@
 package md.absa.makeup.challenge.data.db.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
@@ -7,6 +8,9 @@ import md.absa.makeup.challenge.model.MakeUpItem
 
 @Dao
 interface MakeUpItemDao : BaseDao<MakeUpItem> {
+
+    @Query("SELECT * FROM make_up_item")
+    fun getAllMakeUpItems(): LiveData<List<MakeUpItem>>
 
     @Query("SELECT DISTINCT(brand) FROM make_up_item ORDER BY id")
     fun getBrands(): Flow<List<String>>

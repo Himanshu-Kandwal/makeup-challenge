@@ -19,5 +19,4 @@ class ProductColorConverter {
         val listType: Type = object : TypeToken<ArrayList<ProductColor?>?>() {}.type
         return Gson().fromJson(string, listType)
     }
-
 }

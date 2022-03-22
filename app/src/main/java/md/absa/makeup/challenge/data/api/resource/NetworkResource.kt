@@ -1,7 +1,5 @@
 package md.absa.makeup.challenge.data.api.resource
 
-import md.ke.dvt.data.network.resource.Status
-
 data class NetworkResource<out T>(
     val status: Status,
     val data: T?,
@@ -29,4 +27,10 @@ data class NetworkResource<out T>(
                 message = message
             )
     }
+}
+
+enum class Status {
+    SUCCESS,
+    LOADING,
+    ERROR
 }

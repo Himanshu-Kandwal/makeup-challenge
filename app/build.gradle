@@ -15,7 +15,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "md.absa.makeup.challenge.HiltTestRunner"
     }
     buildTypes {
         release {
@@ -33,6 +33,16 @@ android {
     }
     buildFeatures {
         viewBinding true
+    }
+    packagingOptions {
+//        exclude 'META-INF/DEPENDENCIES'
+//        exclude 'META-INF/LICENSE'
+//        exclude 'META-INF/LICENSE.txt'
+//        exclude 'META-INF/license.txt'
+//        exclude 'META-INF/NOTICE'
+//        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/AL2.0'
     }
 }
 
@@ -54,6 +64,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
     implementation "androidx.paging:paging-runtime-ktx:$pagingVersion"
+    implementation 'androidx.test.ext:junit-ktx:1.1.3'
     kapt "androidx.room:room-compiler:$roomVersion"
 
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
@@ -101,19 +112,39 @@ dependencies {
     implementation 'com.facebook.stetho:stetho:1.5.1'
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
 
-    //Truth
+    /**
+     * Local unit tests
+     */
+    testImplementation 'junit:junit:4.12'
+    //Googles Truth Assertion
     testImplementation "com.google.truth:truth:1.1.3"
+    //For InstantTaskExecutorRule
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    //For runBlockingTest, CoroutineDispatcher etc.
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1"
+
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+
+    /**
+     * Instrumented unit tests
+     */
+    androidTestImplementation 'junit:junit:4.12'
+    //Googles Truth Assertion
     androidTestImplementation "com.google.truth:truth:1.1.3"
+    //For InstantTaskExecutorRule
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    //For runBlockingTest, CoroutineDispatcher etc.
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1"
 
-    testImplementation 'androidx.test.ext:truth:1.4.0'
-    androidTestImplementation 'androidx.test.ext:truth:1.4.0'
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
 
-    // unit tests
-    testImplementation 'junit:junit:4.13.2'
-
-    // instrumented tests
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.38.1")
+
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.38.1")
 
 }
 //apply from: "$project.rootDir/jacoco.gradle"

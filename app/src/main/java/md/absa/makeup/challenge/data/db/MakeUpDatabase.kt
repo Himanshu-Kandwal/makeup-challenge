@@ -27,7 +27,6 @@ abstract class MakeUpDatabase : RoomDatabase() {
     abstract fun makeUpItemDao(): MakeUpItemDao
 
     companion object {
-
         private var INSTANCE: MakeUpDatabase? = null
 
         @Synchronized
