@@ -60,6 +60,7 @@ class ProductsFragment : Fragment() {
     }
 
     private fun setupRecyclerView(products: List<MakeUpItem>) {
+        products.sortedBy { it.category }
         val adapter = ProductsAdapter(products)
         binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         binding.recyclerView.adapter = adapter

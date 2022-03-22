@@ -103,6 +103,7 @@ class BrandsFragment : Fragment() {
                     Timber.tag("BRANDS...").e(it.toString())
                     binding.recyclerView.visibility = View.VISIBLE
                     binding.noData.visibility = View.GONE
+                    binding.fetchMakeup.visibility = View.GONE
                     setupRecyclerView(it)
                 } else {
                     Snackbar.make(
