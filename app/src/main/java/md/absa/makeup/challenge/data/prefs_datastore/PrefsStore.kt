@@ -1,4 +1,4 @@
-package md.absa.makeup.challenge.prefs_datastore
+package md.absa.makeup.challenge.data.prefs_datastore
 
 import kotlinx.coroutines.flow.Flow
 

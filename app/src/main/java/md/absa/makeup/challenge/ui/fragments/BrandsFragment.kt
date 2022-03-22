@@ -1,6 +1,5 @@
 package md.absa.makeup.challenge.ui.fragments
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import md.absa.makeup.challenge.R
 import md.absa.makeup.challenge.common.Constants
 import md.absa.makeup.challenge.common.Utils
 import md.absa.makeup.challenge.data.api.resource.Status
@@ -37,7 +37,7 @@ class BrandsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        Utils.setStatusBarColor(requireActivity().window, Color.BLACK, true)
+        Utils.setStatusBarColor(requireActivity().window, resources.getColor(R.color.purple_500, resources.newTheme()), true)
         _binding = FragmentBrandsBinding.inflate(inflater, container, false)
         return binding.root
     }

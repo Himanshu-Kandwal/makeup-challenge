@@ -36,7 +36,7 @@ class ProductsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         image.load(imageUrl) {
             placeholder(R.drawable.placeholder)
         }
-        name.text = product.name
+        name.text = product.name?.trim()
         price.text = (product.currency ?: "KES:") + product.price
         category.text = "Category: " + (product.category ?: "N/A")
         rating.text = "Rating: " + (product.rating ?: "N/A")

@@ -21,7 +21,7 @@ class BrandsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 
     fun bind(brand: String) {
-        name.text = brand
+        name.text = brand.trim()
     }
 
     companion object {

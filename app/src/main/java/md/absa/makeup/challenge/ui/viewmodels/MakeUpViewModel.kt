@@ -7,7 +7,7 @@ import md.absa.makeup.challenge.data.api.resource.NetworkResource
 import md.absa.makeup.challenge.data.api.response.MakeUpResponse
 import md.absa.makeup.challenge.data.repository.MakeUpRepository
 import md.absa.makeup.challenge.model.MakeUpItem
-import md.absa.makeup.challenge.prefs_datastore.PrefsStore
+import md.absa.makeup.challenge.data.prefs_datastore.PrefsStore
 import javax.inject.Inject
 
 @HiltViewModel

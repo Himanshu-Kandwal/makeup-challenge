@@ -36,13 +36,13 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment?
         navHostFragment?.let {
             val navController = it.navController
-            appBarConfiguration = AppBarConfiguration(navController.graph)
 
-            //        appBarConfiguration = AppBarConfiguration.Builder(
-            //            R.id.brandsFragment,
-            //            R.id.productFragment,
-            //            R.id.webViewFragment,
-            //        ).build()
+            appBarConfiguration = AppBarConfiguration.Builder(
+                R.id.brandsFragment,
+                R.id.productFragment,
+                R.id.productsFragment,
+                R.id.webViewFragment,
+            ).build()
 
             setupActionBarWithNavController(navController, appBarConfiguration)
 
@@ -107,9 +107,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         if (nightModeActive) {
-            menu?.findItem(R.id.dayNightMode)?.setIcon(R.drawable.icn_night_mode)
-        } else {
             menu?.findItem(R.id.dayNightMode)?.setIcon(R.drawable.icn_light_mode)
+        } else {
+            menu?.findItem(R.id.dayNightMode)?.setIcon(R.drawable.icn_night_mode)
         }
         return true
     }

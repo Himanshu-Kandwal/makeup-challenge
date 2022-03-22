@@ -47,7 +47,7 @@ class ProductFragment : Fragment() {
         viewModel.singleProduct.observe(viewLifecycleOwner) { response ->
             when (response.status) {
                 Status.LOADING -> {
-                    Toast.makeText(requireActivity(), "LOADING", Toast.LENGTH_LONG).show()
+//                    Toast.makeText(requireActivity(), "LOADING", Toast.LENGTH_LONG).show()
                 }
                 Status.SUCCESS -> {
                     response.data.let { product ->
@@ -64,13 +64,13 @@ class ProductFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun setupProductView(product: MakeUpItem?) {
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = product?.name ?: "Product"
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = product?.name?.trim() ?: "Product"
 
         val imageUrl = product?.image_link ?: product?.api_featured_image
         binding.image.load(imageUrl) {
             placeholder(R.drawable.placeholder)
         }
-        binding.name.text = product?.name
+        binding.name.text = product?.name?.trim()
         binding.price.text = (product?.currency ?: "KES:") + product?.price
         binding.category.text = "Category: " + (product?.category ?: "N/A")
         binding.rating.text = "Rating: " + (product?.rating ?: "N/A")
@@ -89,7 +89,7 @@ class ProductFragment : Fragment() {
         viewModel.similarProducts.observe(viewLifecycleOwner) { response ->
             when (response.status) {
                 Status.LOADING -> {
-                    Toast.makeText(requireActivity(), "LOADING", Toast.LENGTH_LONG).show()
+//                    Toast.makeText(requireActivity(), "LOADING", Toast.LENGTH_LONG).show()
                 }
                 Status.SUCCESS -> {
                     response.data.let { products ->

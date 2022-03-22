@@ -2,7 +2,6 @@ package md.absa.makeup.challenge.ui.fragments
 
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,9 @@ import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import md.absa.makeup.challenge.R
 import md.absa.makeup.challenge.common.Utils
 import md.absa.makeup.challenge.databinding.FragmentSplashBinding
@@ -40,19 +41,16 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Todo check if data is in the DB, if not call scheduleWork
         applicationScope.launch {
-            setupRecurringWork()
+            scheduleWork()
         }
-        Handler().postDelayed(
-            Runnable {
-                findNavController().navigate(R.id.action_splashFragment_to_welcomeFragment)
-            },
-            2000
-        )
+        findNavController().navigate(R.id.action_splashFragment_to_welcomeFragment)
     }
 
     /**
-     * Fire our worker to fetch makeup data via [setupRecurringWork]
+     * Fire our worker to fetch makeup data via [scheduleWork]
      *
      * if for sure we knew the data would change at some point, i'd use a periodic
      * work request as below
@@ -63,7 +61,7 @@ class SplashFragment : Fragment() {
      *  repeatingRequest
      *  )
      */
-    private fun setupRecurringWork() {
+    private fun scheduleWork() {
         val constraints = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
         val task = OneTimeWorkRequestBuilder<MakeUpWorker>().setConstraints(constraints).build()
         val workManager = WorkManager.getInstance(requireContext())
