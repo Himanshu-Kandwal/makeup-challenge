@@ -8,7 +8,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import md.absa.makeup.challenge.data.repository.MakeUpRepository
+import md.absa.makeup.challenge.data.repository.MakeUpRepositoryImpl
 import timber.log.Timber
 import java.lang.Exception
 
@@ -16,11 +16,11 @@ import java.lang.Exception
 class MakeUpWorker @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted workerParameters: WorkerParameters,
-    private val makeUpRepository: MakeUpRepository
+    private val makeUpRepositoryImpl: MakeUpRepositoryImpl
 ) : CoroutineWorker(context, workerParameters) {
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         try {
-            makeUpRepository.fetchMakeUp()
+            makeUpRepositoryImpl.fetchMakeUp()
             Timber.tag(TAG).d("Success fetching makeup data")
             Result.success()
         } catch (e: Exception) {

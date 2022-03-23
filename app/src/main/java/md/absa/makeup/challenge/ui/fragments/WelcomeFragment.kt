@@ -17,12 +17,13 @@ import kotlinx.coroutines.launch
 import md.absa.makeup.challenge.R
 import md.absa.makeup.challenge.databinding.FragmentWelcomeBinding
 import md.absa.makeup.challenge.ui.adapters.WelcomeViewPagerAdapter
-import md.absa.makeup.challenge.ui.viewmodels.MakeUpViewModel
+import md.absa.makeup.challenge.ui.viewmodels.StoreViewModel
 
 @AndroidEntryPoint
 class WelcomeFragment : Fragment() {
 
-    private val viewModel by viewModels<MakeUpViewModel>()
+    private val storeViewModel by viewModels<StoreViewModel>()
+
     private var _binding: FragmentWelcomeBinding? = null
     private val binding get() = _binding!!
 
@@ -44,7 +45,7 @@ class WelcomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.welcomeScreenInfo().observe(viewLifecycleOwner) { welcomeIsScreenShown ->
+        storeViewModel.welcomeScreenInfo().observe(viewLifecycleOwner) { welcomeIsScreenShown ->
             when (welcomeIsScreenShown) {
                 true -> {
                     launchHomeScreen()
@@ -61,7 +62,7 @@ class WelcomeFragment : Fragment() {
 
     private fun launchHomeScreen() {
         lifecycleScope.launch {
-            viewModel.setWelcomeScreenInfo(true)
+            storeViewModel.setWelcomeScreenInfo(true)
         }
         findNavController().navigate(R.id.action_welcomeFragment_to_brandsFragment)
     }
@@ -104,6 +105,7 @@ class WelcomeFragment : Fragment() {
                 binding.btnSkip.visibility = View.VISIBLE
             }
         }
+
         override fun onPageScrolled(arg0: Int, arg1: Float, arg2: Int) {}
         override fun onPageScrollStateChanged(arg0: Int) {}
     }

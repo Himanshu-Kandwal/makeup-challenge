@@ -122,10 +122,9 @@ dependencies {
     testImplementation "androidx.arch.core:core-testing:2.1.0"
     //For runBlockingTest, CoroutineDispatcher etc.
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1"
-
     testImplementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-
+    testImplementation "org.mockito:mockito-core:3.3.3"
 
     /**
      * Instrumented unit tests
@@ -134,17 +133,12 @@ dependencies {
     //Googles Truth Assertion
     androidTestImplementation "com.google.truth:truth:1.1.3"
     //For InstantTaskExecutorRule
-    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
     //For runBlockingTest, CoroutineDispatcher etc.
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1"
-
     androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
-
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-
     androidTestImplementation("com.google.dagger:hilt-android-testing:2.38.1")
-
     kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.38.1")
-
 }
 //apply from: "$project.rootDir/jacoco.gradle"

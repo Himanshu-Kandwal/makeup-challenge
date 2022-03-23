@@ -15,7 +15,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import md.absa.makeup.challenge.R
 import md.absa.makeup.challenge.databinding.ActivityMainBinding
-import md.absa.makeup.challenge.ui.viewmodels.MakeUpViewModel
+import md.absa.makeup.challenge.ui.viewmodels.StoreViewModel
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var nightModeActive = false
 
-    private val viewModel by viewModels<MakeUpViewModel>()
+    private val storeViewModel by viewModels<StoreViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +46,6 @@ class MainActivity : AppCompatActivity() {
 
             setupActionBarWithNavController(navController, appBarConfiguration)
 
-            // todo use safe args to set dynamic fragment titles
             navController.addOnDestinationChangedListener { _, destination, _ ->
                 when (destination.id) {
                     R.id.splashFragment -> {
@@ -77,7 +76,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        viewModel.darkThemeEnabled.observe(this) { nightModeActive ->
+        storeViewModel.darkThemeEnabled.observe(this) { nightModeActive ->
             this.nightModeActive = nightModeActive
             val defaultMode = if (nightModeActive) {
                 AppCompatDelegate.MODE_NIGHT_YES
@@ -100,7 +99,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.dayNightMode) {
-            viewModel.toggleNightMode()
+            storeViewModel.toggleNightMode()
         }
         return true
     }

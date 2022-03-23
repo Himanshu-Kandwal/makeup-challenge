@@ -1,34 +1,21 @@
 package md.absa.makeup.challenge.data.repository
 
-import md.absa.makeup.challenge.data.api.RetrofitInterface
+import kotlinx.coroutines.flow.Flow
 import md.absa.makeup.challenge.data.api.response.MakeUpResponse
-import md.absa.makeup.challenge.data.db.MakeUpDatabase
-import javax.inject.Inject
+import md.absa.makeup.challenge.model.MakeUpItem
+import retrofit2.Response
 
-class MakeUpRepository @Inject constructor(
-    private val retrofitInterface: RetrofitInterface,
-    private val makeUpDatabase: MakeUpDatabase
-) : MakeUpRepositoryImpl {
+interface MakeUpRepository {
 
-    override suspend fun fetchMakeUp() =
-        retrofitInterface.fetchMakeUpProducts().also {
-            addToRoom(it.body())
-        }
+    suspend fun fetchMakeUp(): Response<MakeUpResponse>
 
-    override suspend fun addToRoom(response: MakeUpResponse?) {
-        makeUpDatabase.makeUpItemDao().nukeTable()
-        makeUpDatabase.makeUpItemDao().insert(response!!)
-    }
+    suspend fun addToRoom(response: List<MakeUpItem>)
 
-    override fun getBrands() =
-        makeUpDatabase.makeUpItemDao().getBrands()
+    fun getBrands(): Flow<List<String>>
 
-    override fun getProductsByBrand(brandName: String) =
-        makeUpDatabase.makeUpItemDao().getProductsByBrand(brandName)
+    fun getProductsByBrand(brandName: String): Flow<List<MakeUpItem>>
 
-    override suspend fun getProductById(id: String) =
-        makeUpDatabase.makeUpItemDao().getProductById(id)
+    suspend fun getProductById(id: String): MakeUpItem
 
-    override suspend fun getProductsByProductType(productType: String?) =
-        makeUpDatabase.makeUpItemDao().getProductsByProductType(productType)
+    suspend fun getProductsByProductType(productType: String?): List<MakeUpItem>
 }

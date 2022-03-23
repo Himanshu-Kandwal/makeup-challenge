@@ -49,42 +49,50 @@ class BrandsFragment : Fragment() {
 
         binding.fetchMakeup.setOnClickListener {
             viewModel.fetchMakeup()
-            viewModel.makeUpItems.observe(viewLifecycleOwner) { response ->
-                when (response.status) {
-                    Status.LOADING -> {
-                        binding.fetchMakeup.visibility = View.GONE
-                        binding.progressBar.visibility = View.VISIBLE
-                        binding.noData.visibility = View.GONE
-                        binding.noWifi.visibility = View.GONE
-                    }
-                    Status.SUCCESS -> {
-                        binding.fetchMakeup.visibility = View.GONE
-                        binding.noData.visibility = View.GONE
-                        binding.progressBar.visibility = View.GONE
-                        binding.noWifi.visibility = View.GONE
-                        response.data?.let { data ->
-                            Snackbar.make(
-                                binding.root,
-                                response.message.toString(),
-                                LENGTH_LONG
-                            ).show()
-                            Timber.e(data.toString())
-                            observeDBForBrands()
-                        }
-                    }
-                    Status.ERROR -> {
-                        binding.fetchMakeup.visibility = View.VISIBLE
-                        binding.progressBar.visibility = View.GONE
-                        binding.noData.visibility = View.GONE
-                        // For now I assume its a network issue, best practice => handle all scenarios
-                        binding.noWifi.visibility = View.VISIBLE
+        }
+        viewModel.makeUpItems.observe(viewLifecycleOwner) { response ->
+            Timber.e("brands response", response.toString())
+
+            when (response.status) {
+                Status.LOADING -> {
+                    Timber.e("brands LOADING", response.toString())
+
+                    binding.fetchMakeup.visibility = View.GONE
+                    binding.progressBar.visibility = View.VISIBLE
+                    binding.noData.visibility = View.GONE
+                    binding.noWifi.visibility = View.GONE
+                }
+                Status.SUCCESS -> {
+                    Timber.e("brands SUCCESS", response.toString())
+
+                    binding.fetchMakeup.visibility = View.GONE
+                    binding.noData.visibility = View.GONE
+                    binding.progressBar.visibility = View.GONE
+                    binding.noWifi.visibility = View.GONE
+                    response.data?.let { data ->
                         Snackbar.make(
                             binding.root,
                             response.message.toString(),
                             LENGTH_LONG
                         ).show()
-                        Timber.e(response.toString())
+                        Timber.e("brands success", data.toString())
+                        observeDBForBrands()
                     }
+                }
+                Status.ERROR -> {
+                    Timber.e("brands ERROR", response.toString())
+
+                    binding.fetchMakeup.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.GONE
+                    binding.noData.visibility = View.GONE
+                    // For now I assume its a network issue, best practice => handle all scenarios
+                    binding.noWifi.visibility = View.VISIBLE
+                    Snackbar.make(
+                        binding.root,
+                        response.message.toString(),
+                        LENGTH_LONG
+                    ).show()
+                    Timber.e(response.toString())
                 }
             }
         }

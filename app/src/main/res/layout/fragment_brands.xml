@@ -19,7 +19,6 @@
         tools:ignore="UnusedAttribute"
         tools:listitem="@layout/item_brands_list" />
 
-    <!-- Button to fetch makeup data if we are using kotlin flows.. - todo may be implemented -->
     <Button
         android:id="@+id/fetch_makeup"
         android:layout_width="wrap_content"

@@ -4,20 +4,17 @@ import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import md.absa.makeup.challenge.data.api.resource.NetworkResource
-import md.absa.makeup.challenge.data.api.response.MakeUpResponse
-import md.absa.makeup.challenge.data.repository.MakeUpRepository
+import md.absa.makeup.challenge.data.repository.MakeUpRepositoryImpl
 import md.absa.makeup.challenge.model.MakeUpItem
-import md.absa.makeup.challenge.data.prefs_datastore.PrefsStore
 import javax.inject.Inject
 
 @HiltViewModel
 class MakeUpViewModel @Inject constructor(
-    private val repository: MakeUpRepository,
-    private val prefsStore: PrefsStore
+    private val repositoryImpl: MakeUpRepositoryImpl
 ) : ViewModel() {
 
-    private val _makeUpItems: MutableLiveData<NetworkResource<MakeUpResponse?>> = MutableLiveData()
-    val makeUpItems: LiveData<NetworkResource<MakeUpResponse?>>
+    private val _makeUpItems: MutableLiveData<NetworkResource<List<MakeUpItem?>>> = MutableLiveData()
+    val makeUpItems: LiveData<NetworkResource<List<MakeUpItem?>>>
         get() {
             return _makeUpItems
         }
@@ -38,9 +35,13 @@ class MakeUpViewModel @Inject constructor(
         viewModelScope.launch {
             _makeUpItems.value = NetworkResource.loading(message = "Loading")
             kotlin.runCatching {
-                repository.fetchMakeUp()
+                repositoryImpl.fetchMakeUp()
             }.onSuccess { response ->
-                _makeUpItems.value = NetworkResource.success(data = response.body())
+                val data = mutableListOf<MakeUpItem>()
+                for (item in response.body()!!) {
+                    data.add(item)
+                }
+                _makeUpItems.value = NetworkResource.success(data = data)
             }.onFailure { error ->
                 _makeUpItems.value = NetworkResource.error(message = error.message ?: "Some error occurred")
             }
@@ -50,7 +51,7 @@ class MakeUpViewModel @Inject constructor(
         viewModelScope.launch {
             _singleProduct.value = NetworkResource.loading(message = "Loading")
             kotlin.runCatching {
-                repository.getProductById(id)
+                repositoryImpl.getProductById(id)
             }.onSuccess { response ->
                 _singleProduct.value = NetworkResource.success(data = response)
             }.onFailure { error ->
@@ -62,7 +63,7 @@ class MakeUpViewModel @Inject constructor(
         viewModelScope.launch {
             _similarProducts.value = NetworkResource.loading(message = "Loading")
             kotlin.runCatching {
-                repository.getProductsByProductType(productType)
+                repositoryImpl.getProductsByProductType(productType)
             }.onSuccess { response ->
                 _similarProducts.value = NetworkResource.success(data = response)
             }.onFailure { error ->
@@ -70,18 +71,7 @@ class MakeUpViewModel @Inject constructor(
             }
         }
 
-    fun toggleNightMode() {
-        viewModelScope.launch {
-            prefsStore.toggleNightMode()
-        }
-    }
-    val darkThemeEnabled = prefsStore.isNightMode().asLiveData()
+    fun getBrands() = repositoryImpl.getBrands()
 
-    fun welcomeScreenInfo() = prefsStore.isWelcomeScreenShown().asLiveData()
-
-    suspend fun setWelcomeScreenInfo(value: Boolean) = prefsStore.setWelcomeScreenShown(value)
-
-    fun getBrands() = repository.getBrands()
-
-    fun getProductsByBrand(brandName: String) = repository.getProductsByBrand(brandName)
+    fun getProductsByBrand(brandName: String) = repositoryImpl.getProductsByBrand(brandName)
 }
