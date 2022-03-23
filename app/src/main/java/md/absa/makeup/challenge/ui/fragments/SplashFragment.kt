@@ -23,8 +23,6 @@ import md.absa.makeup.challenge.workers.MakeUpWorker
 @AndroidEntryPoint
 class SplashFragment : Fragment() {
 
-    private val applicationScope = CoroutineScope(Dispatchers.Default)
-
     private var _binding: FragmentSplashBinding? = null
     private val binding get() = _binding!!
 
@@ -41,9 +39,7 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // Todo check if data is in the DB, if not call scheduleWork
-        applicationScope.launch {
+        CoroutineScope(Dispatchers.Default).launch {
             scheduleWork()
         }
         findNavController().navigate(R.id.action_splashFragment_to_welcomeFragment)

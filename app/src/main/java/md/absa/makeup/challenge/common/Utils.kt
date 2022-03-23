@@ -1,23 +1,11 @@
 package md.absa.makeup.challenge.common
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import android.os.Build
 import android.view.Window
 import android.view.WindowManager
 import androidx.core.view.WindowCompat
 
 object Utils {
-
-    /**
-     * Check connectivity
-     */
-    fun checkInternetConnection(context: Context): Boolean {
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
-        return activeNetwork?.isConnected == true
-    }
 
     /**
      * Coloring the status bar

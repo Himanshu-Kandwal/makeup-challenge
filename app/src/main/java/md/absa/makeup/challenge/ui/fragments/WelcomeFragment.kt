@@ -1,16 +1,15 @@
 package md.absa.makeup.challenge.ui.fragments
 
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -29,9 +28,6 @@ class WelcomeFragment : Fragment() {
 
     private var welcomeViewPagerAdapter: WelcomeViewPagerAdapter? = null
 
-    private var viewPager: ViewPager? = null
-    private var dotsLayout: LinearLayout? = null
-    private var dots: Array<TextView>? = null
     private var layouts: IntArray? = null
 
     override fun onCreateView(
@@ -79,10 +75,7 @@ class WelcomeFragment : Fragment() {
         )
 
         // adding bottom dots
-        // addBottomDots(0)
-
-        // make the notification bar transparent
-        // Utils.changeStatusBarColor()
+        addBottomDots(0)
 
         welcomeViewPagerAdapter = WelcomeViewPagerAdapter(layouts)
         binding.viewPager.adapter = welcomeViewPagerAdapter
@@ -121,34 +114,28 @@ class WelcomeFragment : Fragment() {
         }
     }
 
-    private fun addBottomDots(currentPage: Int) {
-//        dots = arrayOfNulls(layouts.size)
-//        val colorsActive = resources.getIntArray(R.array.array_dot_active)
-//        val colorsInactive = resources.getIntArray(R.array.array_dot_inactive)
-//        dotsLayout.removeAllViews()
-//        for (i in dots.indices) {
-//            dots.get(i) = TextView(this)
-//            dots.get(i).setText(Html.fromHtml("&#8226;"))
-//            dots.get(i).setTextSize(35f)
-//            dots.get(i).setTextColor(colorsInactive[currentPage])
-//            dotsLayout.addView(dots.get(i))
-//        }
-//        if (dots.size > 0) dots.get(currentPage).setTextColor(colorsActive[currentPage])
-    }
-
+    @Suppress("SameParameterValue")
     private fun getItem(i: Int): Int {
         return binding.viewPager.currentItem + i
     }
 
-//    val textView = TextView(requireActivity()).apply {
-//        text = Html.fromHtml("&#8226;")
-//        textSize = 35f
-//        setTextColor(colorsInactive[currentPage])
-//    }
-//    dotsLayout?.addView(textView)
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun addBottomDots(currentPage: Int) {
+        var dots = arrayOfNulls<TextView>(layouts!!.size)
+        val colorsActive = resources.getIntArray(R.array.array_dot_active)
+        val colorsInactive = resources.getIntArray(R.array.array_dot_inactive)
+        binding.layoutDots.removeAllViews()
+        for (i in dots.indices) {
+            dots[i] = TextView(requireActivity())
+            dots[i]?.text = Html.fromHtml("&#8226;")
+            dots[i]?.textSize = 35f
+            dots[i]?.setTextColor(colorsInactive[currentPage])
+            binding.layoutDots.addView(dots[i])
+        }
+        if (dots.isNotEmpty()) dots[currentPage]?.setTextColor(colorsActive[currentPage])
     }
 }

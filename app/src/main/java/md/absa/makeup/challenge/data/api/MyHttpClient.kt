@@ -39,8 +39,6 @@ class MyHttpClient @Inject constructor(
                 .alwaysReadResponseBody(true)
                 .build()
 
-        // TODO Add Stetho Network Interceptor
-
         return OkHttpClient.Builder()
             .addInterceptor(interceptor)
             .addInterceptor(chuckerInterceptor)
