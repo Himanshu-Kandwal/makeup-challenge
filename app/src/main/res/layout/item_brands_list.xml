@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:elevation="10dp"
         android:padding="10dp"
-        app:cardBackgroundColor="@color/lightGray"
+        app:cardBackgroundColor="@color/cardColor"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -25,7 +25,7 @@
             android:padding="16dp"
             android:text="@string/app_name"
             android:textAllCaps="true"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
             android:textSize="16sp"
             android:textStyle="bold" />
     </androidx.cardview.widget.CardView>

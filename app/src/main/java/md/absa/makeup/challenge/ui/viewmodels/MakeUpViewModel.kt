@@ -14,22 +14,13 @@ class MakeUpViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _makeUpItems: MutableLiveData<NetworkResource<List<MakeUpItem?>>> = MutableLiveData()
-    val makeUpItems: LiveData<NetworkResource<List<MakeUpItem?>>>
-        get() {
-            return _makeUpItems
-        }
+    val makeUpItems: LiveData<NetworkResource<List<MakeUpItem?>>> = _makeUpItems
 
     private val _singleProduct: MutableLiveData<NetworkResource<MakeUpItem?>> = MutableLiveData()
-    val singleProduct: LiveData<NetworkResource<MakeUpItem?>>
-        get() {
-            return _singleProduct
-        }
+    val singleProduct: LiveData<NetworkResource<MakeUpItem?>> = _singleProduct
 
     private val _similarProducts: MutableLiveData<NetworkResource<List<MakeUpItem?>>> = MutableLiveData()
-    val similarProducts: LiveData<NetworkResource<List<MakeUpItem?>>>
-        get() {
-            return _similarProducts
-        }
+    val similarProducts: LiveData<NetworkResource<List<MakeUpItem?>>> = _similarProducts
 
     fun fetchMakeup() =
         viewModelScope.launch {

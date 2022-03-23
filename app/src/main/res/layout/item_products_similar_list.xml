@@ -8,6 +8,7 @@
     android:layout_marginTop="4.0dp"
     android:layout_marginEnd="8.0dp"
     android:layout_marginBottom="4.0dp"
+    card_view:cardBackgroundColor="@color/cardColor"
     card_view:cardCornerRadius="2dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,9 +44,9 @@
             android:maxLines="2"
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
-            android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:textColor="@color/textColor"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/image"
             tools:text="Lip Bum Set" />
@@ -58,6 +59,7 @@
             android:paddingEnd="4dp"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:textColor="@color/textColorLight"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/name"
             tools:text="KES. 9,999" />
@@ -69,6 +71,7 @@
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
             android:textSize="16sp"
+            android:textColor="@color/textColorLight"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/price"
             tools:text="Category: lip bum" />
@@ -81,6 +84,7 @@
             android:paddingEnd="4dp"
             android:paddingBottom="4dp"
             android:textSize="16sp"
+            android:textColor="@color/textColorLight"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/category"
             tools:text="Rating : 4.5*" />

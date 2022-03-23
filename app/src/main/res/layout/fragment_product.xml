@@ -26,6 +26,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:cardBackgroundColor="@color/cardColor"
                 card_view:cardCornerRadius="2dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,7 +54,7 @@
                         android:paddingStart="16dp"
                         android:paddingEnd="16dp"
                         android:text="@string/product_name"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         android:textSize="20sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/image" />
@@ -70,6 +71,7 @@
                         android:text="@string/price"
                         android:textSize="18sp"
                         android:textStyle="bold"
+                        android:textColor="@color/textColorLight"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/name" />
 
@@ -86,6 +88,7 @@
                         android:text="@string/category"
                         android:textSize="13sp"
                         android:textStyle="bold"
+                        android:textColor="@color/textColorLight"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/price" />
 
@@ -101,6 +104,7 @@
                         android:text="@string/rating"
                         android:textSize="13sp"
                         android:textStyle="bold"
+                        android:textColor="@color/textColorLight"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/category" />
 
@@ -116,6 +120,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageCard"
+                app:cardBackgroundColor="@color/cardColor"
                 card_view:cardCornerRadius="2dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -131,7 +136,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/about_product"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -143,6 +148,7 @@
                         android:layout_marginTop="8dp"
                         android:text="@string/description"
                         android:textSize="15sp"
+                        android:textColor="@color/textColorLight"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/about_product" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -158,6 +164,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detailsCard"
+                app:cardBackgroundColor="@color/cardColor"
                 card_view:cardCornerRadius="2dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -173,7 +180,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:text="@string/you_may_also_want"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -205,7 +212,7 @@
         android:padding="16dp"
         android:text="@string/buy"
         android:textAllCaps="true"
-        android:textColor="@color/white"
+        android:textColor="@color/textColorBright"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
