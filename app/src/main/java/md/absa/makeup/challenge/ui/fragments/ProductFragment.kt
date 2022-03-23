@@ -9,10 +9,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import md.absa.makeup.challenge.R
 import md.absa.makeup.challenge.data.api.resource.Status
 import md.absa.makeup.challenge.databinding.FragmentProductBinding
@@ -86,19 +88,22 @@ class ProductFragment : Fragment() {
 
     private fun setupSimilarProducts(productType: String?) {
         viewModel.getProductsByProductType(productType)
-        viewModel.similarProducts.observe(viewLifecycleOwner) { response ->
-            when (response.status) {
-                Status.LOADING -> {
-//                    Toast.makeText(requireActivity(), "LOADING", Toast.LENGTH_LONG).show()
-                }
-                Status.SUCCESS -> {
-                    response.data.let { products ->
-                        Timber.tag("PRODUCT").e(products.toString())
-                        setupSimilarProductsRecyclerView(products)
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.similarProducts.collectLatest { response ->
+                when (response.status) {
+                    Status.LOADING -> {
+                        // Show progress bar
                     }
-                }
-                Status.ERROR -> {
-                    Toast.makeText(requireActivity(), "ERROR OCCURRED", Toast.LENGTH_LONG).show()
+                    Status.SUCCESS -> {
+                        response.data.let { products ->
+                            Timber.tag("PRODUCT").e(products.toString())
+                            setupSimilarProductsRecyclerView(products)
+                        }
+                    }
+                    Status.ERROR -> {
+                        Toast.makeText(requireActivity(), "AN ERROR OCCURRED", Toast.LENGTH_LONG).show()
+                    }
                 }
             }
         }

@@ -2,6 +2,8 @@ package md.absa.makeup.challenge.ui.viewmodels
 
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import md.absa.makeup.challenge.data.api.resource.NetworkResource
 import md.absa.makeup.challenge.data.repository.MakeUpRepositoryImpl
@@ -13,14 +15,20 @@ class MakeUpViewModel @Inject constructor(
     private val repositoryImpl: MakeUpRepositoryImpl
 ) : ViewModel() {
 
+    /**
+     * Using stateflow api
+     */
+    private val _similarProducts: MutableStateFlow<NetworkResource<List<MakeUpItem?>>> = MutableStateFlow(NetworkResource.loading("Loading"))
+    val similarProducts = _similarProducts.asStateFlow()
+
+    /**
+     * Using livedata api
+     */
     private val _makeUpItems: MutableLiveData<NetworkResource<List<MakeUpItem?>>> = MutableLiveData()
     val makeUpItems: LiveData<NetworkResource<List<MakeUpItem?>>> = _makeUpItems
 
     private val _singleProduct: MutableLiveData<NetworkResource<MakeUpItem?>> = MutableLiveData()
     val singleProduct: LiveData<NetworkResource<MakeUpItem?>> = _singleProduct
-
-    private val _similarProducts: MutableLiveData<NetworkResource<List<MakeUpItem?>>> = MutableLiveData()
-    val similarProducts: LiveData<NetworkResource<List<MakeUpItem?>>> = _similarProducts
 
     fun fetchMakeup() =
         viewModelScope.launch {
@@ -37,6 +45,10 @@ class MakeUpViewModel @Inject constructor(
                 _makeUpItems.value = NetworkResource.error(message = error.message ?: "Some error occurred")
             }
         }
+
+    fun getBrands() = repositoryImpl.getBrands()
+
+    fun getProductsByBrand(brandName: String) = repositoryImpl.getProductsByBrand(brandName)
 
     fun getProductById(id: String) =
         viewModelScope.launch {
@@ -61,8 +73,4 @@ class MakeUpViewModel @Inject constructor(
                 _similarProducts.value = NetworkResource.error(message = error.message ?: "Some error occurred")
             }
         }
-
-    fun getBrands() = repositoryImpl.getBrands()
-
-    fun getProductsByBrand(brandName: String) = repositoryImpl.getProductsByBrand(brandName)
 }
