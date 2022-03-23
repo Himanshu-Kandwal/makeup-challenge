@@ -56,11 +56,9 @@ class BrandsFragment : Fragment() {
             when (response.status) {
                 Status.LOADING -> {
                     Timber.e("brands LOADING", response.toString())
-
                     binding.fetchMakeup.visibility = View.GONE
                     binding.progressBar.visibility = View.VISIBLE
                     binding.noData.visibility = View.GONE
-                    binding.noWifi.visibility = View.GONE
                 }
                 Status.SUCCESS -> {
                     Timber.e("brands SUCCESS", response.toString())
@@ -68,7 +66,6 @@ class BrandsFragment : Fragment() {
                     binding.fetchMakeup.visibility = View.GONE
                     binding.noData.visibility = View.GONE
                     binding.progressBar.visibility = View.GONE
-                    binding.noWifi.visibility = View.GONE
                     response.data?.let { data ->
                         Snackbar.make(
                             binding.root,
@@ -84,9 +81,7 @@ class BrandsFragment : Fragment() {
 
                     binding.fetchMakeup.visibility = View.VISIBLE
                     binding.progressBar.visibility = View.GONE
-                    binding.noData.visibility = View.GONE
-                    // For now I assume its a network issue, best practice => handle all scenarios
-                    binding.noWifi.visibility = View.VISIBLE
+                    binding.noData.visibility = View.VISIBLE
                     Snackbar.make(
                         binding.root,
                         response.message.toString(),

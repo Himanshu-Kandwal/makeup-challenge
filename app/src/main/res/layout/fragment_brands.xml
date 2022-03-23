@@ -54,18 +54,4 @@
         android:src="@drawable/ic_baseline_info_24"
         tools:ignore="ContentDescription" />
 
-    <!-- Should probably use same Image view and change the drawable -->
-    <ImageView
-        android:id="@+id/noWifi"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:scaleType="centerCrop"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/ic_baseline_wifi_off_24"
-        tools:ignore="ContentDescription" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
